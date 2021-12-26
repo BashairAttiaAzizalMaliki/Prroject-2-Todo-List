@@ -11,4 +11,4 @@ isCompleted:Boolean
 //Model
 const Todo=model('Todo',todoSchema)
 
-model.export=Todo
+module.exports=Todo
