@@ -1,12 +1,50 @@
+const { query } = require('express')
 const express=require('express')
+const req = require('express/lib/request')
 const app=express()
 const db=require('./db')
 const Todo=require('./todo')
 app.use(express.json())
+//-----------------------
 app.get('/',(req,res)=>{
 
     res.json('GET/is working')
 })
+//-----------------------
+app.get("/complete",(req,res)=>{
+Todo.find({isCompleted:true},(err,data)=>{
+    if(err){
+        console.log("ERR",err);
+    }else{
+        // console.log(data);
+        res.json(data);
+    }
+})
+})
+//-----------------------
+app.get("/not_complete",(req,res)=>{
+    Todo.find({isCompleted:false},(err,data)=>{
+        if(err){
+            console.log("ERR",err);
+        }else{
+            console.log(data);
+            res.json(data);
+        }
+    })
+    })
+//-----------------------
+   app.get("/filter",(req,res)=>{
+       console.log(req,query);
+    Todo.find({isCompleted:false},(err,data)=>{
+        if(err){
+            console.log("ERR",err);
+        }else{
+            // console.log(data);
+            res.json(data);
+        }
+    })
+    })
+   //-----------------------  
 app.listen(5000,()=>{
     console.log('SERVER IS WORKING ');
 });
